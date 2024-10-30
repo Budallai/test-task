@@ -1,0 +1,11 @@
+- name: Start compose
+  shell:
+      cmd: "docker compose -f docker-compose.yml up -d"
+      chdir: "{{ dir_app}}"
+  when: not stop_compose | default(false)
+
+- name: Stop compose
+  shell:
+      cmd: "docker compose -f docker-compose.yml down"
+      chdir: "{{ dir_app}}"
+  when: stop_compose | default(false)

@@ -1,0 +1,11 @@
+---
+DB_IP: 127.0.0.1
+DB_HOST: db
+DB_USER: root
+DB_PASSWORD: superpassword
+DB_NAME: testdb
+
+nginx_port: 80
+php_port: 9000
+
+dir_app: /usr/app1

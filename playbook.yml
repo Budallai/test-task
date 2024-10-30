@@ -1,0 +1,18 @@
+---
+- name: Test 
+  hosts: 
+   - localhost # укажите хост для запуска приложения вместо localhost
+  become: True
+  vars_files: 
+    - vars.yml
+
+  tasks:
+
+    - name: Install docker
+      include_tasks: pb_install_docker.yml
+
+    - name: Upload files
+      include_tasks: pb_upload_files.yml
+
+    - name: Start or stop compose
+      include_tasks: pb_start_stop_docker.yml

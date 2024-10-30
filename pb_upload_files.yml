@@ -1,0 +1,47 @@
+---
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ dir_app }}"
+    - "{{ dir_app }}/web"
+    - "{{ dir_app }}/config/nginx"
+    - "{{ dir_app }}/config/php"
+    - "{{ dir_app }}/data"
+
+- name: Copy config files
+  copy: 
+    src: "./files/config/" 
+    dest: "{{ dir_app }}/config/"
+
+- name: Copy data files
+  copy: 
+    src: "./files/data/" 
+    dest: "{{ dir_app }}/data/"
+
+- name: Copy web files
+  copy: 
+    src: "./files/web/" 
+    dest: "{{ dir_app }}/web/"
+
+- name: Copy docker-compose file
+  template: 
+    src: "docker-compose.yml.j2" 
+    dest: "{{ dir_app }}/docker-compose.yml"
+
+- name: Copy nginx file
+  template: 
+    src: "config/nginx/default.conf.j2" 
+    dest: "{{ dir_app }}/config/nginx/default.conf"
+  register: nginx_config
+
+- name: Copy php file
+  template: 
+    src: "config/php/www.conf.j2" 
+    dest: "{{ dir_app }}/config/php/www.conf"
+
+- name: Copy web file
+  template: 
+    src: "web/connect.php.j2" 
+    dest: "{{ dir_app }}/web/connect.php"
